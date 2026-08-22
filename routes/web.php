@@ -20,3 +20,4 @@ Route::get('/edit-pet/{id}', [PetController::class, 'editPet'])->name('edit.pet'
 Route::post('/edit-pet-submit', [PetController::class, 'editPetSubmit'])->name('edit.pet.submit');
 
 Route::get('/delete-pet/{id}', [PetController::class, 'deletePet'])->name('delete.pet');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
