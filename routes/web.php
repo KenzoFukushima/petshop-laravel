@@ -23,4 +23,14 @@ Route::post('/edit-pet-submit', [PetController::class, 'editPetSubmit'])->name('
 Route::get('/delete-pet/{id}', [PetController::class, 'deletePet'])->name('delete.pet');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Rotas de Dono
+
 Route::get('/lista-dono', [DonoController::class, 'index'])->name('telaListaDono');
+
+Route::get('/new-dono', [DonoController::class, 'newDono'])->name('new.dono');
+Route::post('/new-dono-submit', [DonoController::class, 'newDonoSubmit'])->name('newDonoSubmit');
+
+Route::get('/edit-dono/{id}', [DonoController::class, 'editDono'])->name('edit.dono');
+Route::post('/edit-dono-submit', [DonoController::class, 'editDonoSubmit'])->name('edit.dono.submit');
+
+Route::get('/delete-dono/{id}', [DonoController::class, 'deleteDono'])->name('delete.dono');

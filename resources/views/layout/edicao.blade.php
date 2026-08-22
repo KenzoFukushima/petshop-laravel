@@ -1,0 +1,45 @@
+@extends('layout.main_layout')
+
+@section('page-title')
+    <h3>{{ $titulo ?? 'Editar' }}</h3>
+@endsection
+
+@section('content')
+
+<div class="mb-4">
+    <h2 class="fw-bold">
+        {{ $titulo ?? 'Editar' }}
+    </h2>
+
+    <p class="text-muted">
+        {{ $descricao ?? 'Altere os dados abaixo.' }}
+    </p>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+
+        <form action="{{ $action }}" method="POST">
+            @csrf
+
+            @yield('form-fields')
+
+            <div class="d-flex gap-2 mt-4">
+
+                <button type="submit" class="btn btn-primary">
+                    {{ $botao ?? 'Salvar alterações' }}
+                </button>
+
+                <a href="{{ $cancelUrl ?? route('dashboard') }}"
+                   class="btn btn-secondary">
+                    Cancelar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+@endsection
