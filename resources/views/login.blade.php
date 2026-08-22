@@ -46,7 +46,7 @@
 
                 <div class="mb-3">
                     <label for="email" class="form-label">E-mail</label>
-                    <input type="email" name="emailUser" class="form-control" id="email" placeholder="Digite seu e-mail">
+                    <input type="email" name="emailUser" class="form-control" id="email" placeholder="Digite seu e-mail" value="{{ old('emailUser') }}">
                     @error('emailUser')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
