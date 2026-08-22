@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('nome', 100);
             $table->string('especie', 50);
             $table->string('raça', 100)->nullable();
-            $table->date('idade')->nullable();
+            $table->integer('idade')->nullable();
             $table->decimal('peso', 5, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
