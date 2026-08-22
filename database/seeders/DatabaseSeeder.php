@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            DonoSeeder::class,
         ]);
 
+
+        Pet::factory()->count(20)->create();
     }
 }   
