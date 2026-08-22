@@ -101,7 +101,7 @@
 
                     <span class="text-muted">
                         <i class="fas fa-user me-1"></i>
-                        Usuario
+                        {{ session('user')['username'] }}
                     </span>
 
                 </div>

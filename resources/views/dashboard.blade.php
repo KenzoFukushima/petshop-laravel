@@ -10,7 +10,7 @@
     <div class="mb-4">
 
         <h2 class="fw-bold">
-            Olá, Usuario! 
+            Olá, {{ session('user')['username'] }}!
         </h2>
 
         <p class="text-muted">
