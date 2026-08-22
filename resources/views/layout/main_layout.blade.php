@@ -69,7 +69,7 @@
             {{-- Sair --}}
             <div class="position-absolute bottom-0 start-0 p-3" style="width: 240px;">
 
-                <a href="#" class="btn btn-danger text-start w-100 texto-red">
+                <a href="{{ route('logout') }}" class="btn btn-danger text-start w-100 texto-red">
 
                     <i class="fas fa-sign-out-alt me-2"></i>
                     Sair
@@ -101,7 +101,7 @@
 
                     <span class="text-muted">
                         <i class="fas fa-user me-1"></i>
-                        Usuario
+                        {{ session('user')['username'] }}
                     </span>
 
                 </div>
@@ -126,5 +126,4 @@
     </script>
 
 </body>
-//aaaaa
 </html>
