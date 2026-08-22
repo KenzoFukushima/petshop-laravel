@@ -40,7 +40,7 @@
         >
 
         @error('id_dono')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -62,11 +62,10 @@
             class="form-control @error('nome') is-invalid @enderror"
             value="{{ old('nome') }}"
             placeholder="Digite o nome do pet"
-            required
         >
 
         @error('nome')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -85,7 +84,6 @@
             name="especie"
             id="especie"
             class="form-select @error('especie') is-invalid @enderror"
-            required
         >
 
             <option value="">
@@ -111,7 +109,7 @@
         </select>
 
         @error('especie')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -136,7 +134,7 @@
         >
 
         @error('raça')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -163,7 +161,7 @@
         >
 
         @error('peso')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -187,7 +185,7 @@
         >
 
         @error('idade')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
