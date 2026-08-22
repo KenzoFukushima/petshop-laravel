@@ -20,6 +20,6 @@ class Pet extends Model
 
     public function dono()
     {   
-        return $this->belongsTo(Dono::class);   
+        return $this->belongsTo(Dono::class, 'id_dono');   
     }
 }

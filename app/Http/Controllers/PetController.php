@@ -12,10 +12,10 @@ class PetController extends Controller
 
     public function index()
     {
-        $donos = Dono::all();
+        $pets = Pet::all();
 
-        return view('donos.index', [
-            'donos' => $donos
+        return view('listaPet', [
+            'pets' => $pets
         ]);
     }
     public function newPet($id_dono)

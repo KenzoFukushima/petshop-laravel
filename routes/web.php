@@ -34,3 +34,4 @@ Route::get('/edit-dono/{id}', [DonoController::class, 'editDono'])->name('edit.d
 Route::post('/edit-dono-submit', [DonoController::class, 'editDonoSubmit'])->name('edit.dono.submit');
 
 Route::get('/delete-dono/{id}', [DonoController::class, 'deleteDono'])->name('delete.dono');
+Route::get('/lista-pet', [PetController::class, 'index'])->name('telaListaPet');
