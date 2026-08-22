@@ -24,3 +24,4 @@ Route::get('/delete-pet/{id}', [PetController::class, 'deletePet'])->name('delet
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/lista-dono', [DonoController::class, 'index'])->name('telaListaDono');
+Route::get('/lista-pet', [PetController::class, 'index'])->name('telaListaPet');
