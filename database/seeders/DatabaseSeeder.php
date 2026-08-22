@@ -20,13 +20,5 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
 
-        Pet::factory()->create([
-            'id_dono' => 1,
-            'nome' => 'nome',
-            'especie' => 'especie',
-            'raça' => 'raça',
-            'peso' => 8.5,
-            'idade' => 5,
-        ]);
     }
 }   
