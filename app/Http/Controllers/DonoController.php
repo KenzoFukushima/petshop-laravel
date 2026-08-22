@@ -24,7 +24,7 @@ class DonoController extends Controller
             'descricao' => 'Cadastre um novo dono para o Pet Shop.',
             'action' => route('newDonoSubmit'),
             'botao' => 'Cadastrar Dono',
-            'cancelUrl' => route('listaDono'),
+            'cancelUrl' => route('telaListaDono'),
         ]);
     }
 
@@ -48,7 +48,7 @@ class DonoController extends Controller
 
         $dono->save();
 
-        return redirect()->route('listaDono');
+        return redirect()->route('telaListaDono');
     }
 
     public function editDono($id)
@@ -58,7 +58,7 @@ class DonoController extends Controller
         $dono = Dono::find($decrypted_id);
 
         if (!$dono) {
-            return redirect()->route('listaDono');
+            return redirect()->route('telaListaDono');
         }
 
         return view('edit_dono', [
@@ -67,14 +67,14 @@ class DonoController extends Controller
             'descricao' => 'Altere os dados do dono abaixo.',
             'action' => route('edit.dono.submit'),
             'botao' => 'Salvar alterações',
-            'cancelUrl' => route('listaDono'),
+            'cancelUrl' => route('telaListaDono'),
         ]);
     }
 
     public function editDonoSubmit(Request $request)
     {
         if ($request->dono_id === null) {
-            return redirect()->route('listaDono');
+            return redirect()->route('telaListaDono');
         }
 
         $request->validate([
@@ -90,7 +90,7 @@ class DonoController extends Controller
         $dono = Dono::find($id);
 
         if (!$dono) {
-            return redirect()->route('listaDono');
+            return redirect()->route('telaListaDono');
         }
 
         $dono->nome = $request->nome;
@@ -101,7 +101,7 @@ class DonoController extends Controller
 
         $dono->save();
 
-        return redirect()->route('listaDono');
+        return redirect()->route('telaListaDono');
     }
 
     public function deleteDono($id)
@@ -111,11 +111,11 @@ class DonoController extends Controller
         $dono = Dono::find($decrypted_id);
 
         if (!$dono) {
-            return redirect()->route('listaDono');
+            return redirect()->route('telaListaDono');
         }
 
         $dono->delete();
 
-        return redirect()->route('listaDono');
+        return redirect()->route('telaListaDono');
     }
 }
