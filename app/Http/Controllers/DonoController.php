@@ -19,7 +19,13 @@ class DonoController extends Controller
 
     public function newDono()
     {
-        return view('donos.new_dono');
+        return view('new_dono', [
+            'titulo' => 'Cadastrar Dono',
+            'descricao' => 'Cadastre um novo dono para o Pet Shop.',
+            'action' => route('newDonoSubmit'),
+            'botao' => 'Cadastrar Dono',
+            'cancelUrl' => route('listaDono'),
+        ]);
     }
 
     public function newDonoSubmit(Request $request)
@@ -45,7 +51,6 @@ class DonoController extends Controller
         return redirect()->route('listaDono');
     }
 
-
     public function editDono($id)
     {
         $decrypted_id = Operations::decryptId($id);
@@ -56,13 +61,22 @@ class DonoController extends Controller
             return redirect()->route('listaDono');
         }
 
-        return view('donos.edit_dono', [
-            'dono' => $dono
+        return view('edit_dono', [
+            'dono' => $dono,
+            'titulo' => 'Editar Dono',
+            'descricao' => 'Altere os dados do dono abaixo.',
+            'action' => route('edit.dono.submit'),
+            'botao' => 'Salvar alterações',
+            'cancelUrl' => route('listaDono'),
         ]);
     }
 
     public function editDonoSubmit(Request $request)
     {
+        if ($request->dono_id === null) {
+            return redirect()->route('listaDono');
+        }
+
         $request->validate([
             'nome' => 'required|min:2|max:100',
             'email' => 'required|email|max:100',

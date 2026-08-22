@@ -48,7 +48,7 @@
                 </a>
 
 
-                <a href="#" class="btn btn-primary text-start text-white">
+                <a href="{{ route('telaListaDono') }}" class="btn btn-primary text-start text-white">
 
                     <i class="fas fa-users me-2"></i>
                     Donos

@@ -23,4 +23,4 @@ Route::post('/edit-pet-submit', [PetController::class, 'editPetSubmit'])->name('
 Route::get('/delete-pet/{id}', [PetController::class, 'deletePet'])->name('delete.pet');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/lista-dono', [DonoController::class , 'index'])->name('telaListaDono');
+Route::get('/lista-dono', [DonoController::class, 'index'])->name('telaListaDono');
