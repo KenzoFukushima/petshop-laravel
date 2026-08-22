@@ -17,6 +17,20 @@ class DonoController extends Controller
         ]);
     }
 
+    private function formatarCpf($cpf)
+    {
+        
+        $cpfLimpo = preg_replace('/[^0-9]/', '', $cpf);
+
+        if (strlen($cpfLimpo) !== 11) {
+            return $cpf;
+        }
+
+        return sprintf(
+            '%s%s%s.%s%s%s.%s%s%s-%s%s',
+            ...str_split($cpfLimpo)
+        );
+    }
     public function newDono()
     {
         return view('new_dono', [
@@ -31,19 +45,32 @@ class DonoController extends Controller
     public function newDonoSubmit(Request $request)
     {
         $request->validate([
-            'nome' => 'required|min:2|max:100',
-            'email' => 'required|email|max:100',
-            'telefone' => 'required|max:20',
-            'cpf' => 'nullable|max:14',
-            'endereco' => 'nullable|max:255',
-        ]);
-
+                'nome' => 'required|min:2|max:100',
+                'email' => 'required|email|min:8|max:100',
+                'telefone' => 'required|max:20',
+                'cpf' => 'nullable|max:14|min:11',
+                'endereco' => 'nullable|max:255',
+            ],
+            [
+                'nome.required' => 'O campo nome é obrigatório.',
+                'nome.min' => 'O nome é no mínimo 2 caracteres',
+                'email.required' => 'O Email é obrigatório',
+                'email.email' => 'Email inválido.',
+                'email.min' => 'Precisa ter no mínimo 8 caracteres.',
+                'telefone.required' => 'O campo telefone é obrigatório.',
+                'telefone.max' => 'O telefone deve ter no máximo 20 caracteres.',
+                'cpf.max' => 'O CPF inválido',
+                'cpf.min' => 'O CPF inválido',
+                'endereco.max' => 'O endereço deve ter no máximo 255 caracteres.',
+            ]
+        );
         $dono = new Dono();
 
         $dono->nome = $request->nome;
         $dono->email = $request->email;
         $dono->telefone = $request->telefone;
-        $dono->cpf = $request->cpf;
+        $dono->cpf = $request->cpf ? $this->formatarCpf($request->cpf) : null;
+
         $dono->endereco = $request->endereco;
 
         $dono->save();
@@ -78,12 +105,23 @@ class DonoController extends Controller
         }
 
         $request->validate([
-            'nome' => 'required|min:2|max:100',
-            'email' => 'required|email|max:100',
-            'telefone' => 'required|max:20',
-            'cpf' => 'nullable|max:14',
-            'endereco' => 'nullable|max:255',
-        ]);
+                'nome' => 'required|min:2|max:100',
+                'email' => 'required|email|min:8|max:100',
+                'telefone' => 'required|max:20',
+                'cpf' => 'nullable|max:14',
+                'endereco' => 'nullable|max:255',
+            ],
+            [
+                'nome.required' => 'O campo nome é obrigatório.',
+                'nome.min' => 'O nome é no mínimo 2 caracteres',
+                'email.email' => 'Email inválido.',
+                'telefone.required' => 'O campo telefone é obrigatório.',
+                'telefone.max' => 'O telefone deve ter no máximo 20 caracteres.',
+                'cpf.max' => 'O CPF inválido',
+                'cpf.min' => 'O CPF inválido',
+                'endereco.max' => 'O endereço deve ter no máximo 255 caracteres.',
+            ]
+        );
 
         $id = Operations::decryptId($request->dono_id);
 
@@ -96,7 +134,7 @@ class DonoController extends Controller
         $dono->nome = $request->nome;
         $dono->email = $request->email;
         $dono->telefone = $request->telefone;
-        $dono->cpf = $request->cpf;
+        $dono->cpf = $request->cpf ? $this->formatarCpf($request->cpf) : null;
         $dono->endereco = $request->endereco;
 
         $dono->save();

@@ -15,11 +15,10 @@
             class="form-control @error('nome') is-invalid @enderror"
             value="{{ old('nome') }}"
             placeholder="Digite o nome do dono"
-            required
         >
 
         @error('nome')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -39,11 +38,10 @@
             class="form-control @error('email') is-invalid @enderror"
             value="{{ old('email') }}"
             placeholder="Digite o e-mail"
-            required
         >
 
         @error('email')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -63,11 +61,10 @@
             class="form-control @error('telefone') is-invalid @enderror"
             value="{{ old('telefone') }}"
             placeholder="Digite o telefone"
-            required
         >
 
         @error('telefone')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -90,7 +87,7 @@
         >
 
         @error('cpf')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
@@ -113,7 +110,7 @@
         >
 
         @error('endereco')
-            <div class="invalid-feedback">
+            <div class="text-danger">
                 {{ $message }}
             </div>
         @enderror
