@@ -16,8 +16,8 @@ class Pet extends Model
         'idade',
     ];
 
-    public function tutor()
-    {
+    public function dono()
+    {   
         return $this->belongsTo(Dono::class);   
     }
 }
