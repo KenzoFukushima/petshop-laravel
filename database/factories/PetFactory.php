@@ -19,11 +19,11 @@ class PetFactory extends Factory
     {
         return [
             'id_dono' => fake()->numberBetween(1, 10),
-            'nome' => fake()->name(),
-            'especie' => fake()->word(),
+            'nome' => fake()->firstName(),
+            'especie' => fake()->randomElement(['Cachorro', 'Gato', 'Ave', 'Coelho']),
             'raça' => fake()->word(),
             'peso' => fake()->randomFloat(2, 1, 50),
-            'idade' => fake()->numberBetween(1, 20),
+            'idade' => fake()->dateTimeBetween('-15 years', '-1 months')->format('Y-m-d'),
         ];
     }
 }
