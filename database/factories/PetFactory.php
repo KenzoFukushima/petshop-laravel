@@ -19,7 +19,7 @@ class PetFactory extends Factory
     {
         return [
             'id_dono' => fake()->numberBetween(1, 10),
-            'nome' => fake()->name(),
+            'nome' => fake()->firstName(),
             'especie' => fake()->randomElement(['Cachorro', 'Gato', 'Ave', 'Coelho']),
             'raça' => fake()->word(),
             'peso' => fake()->randomFloat(2, 1, 50),
