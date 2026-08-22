@@ -6,23 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('pets', function (Blueprint $table) {
+        Schema::create('donos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_dono')->constrained('donos')->cascadeOnDelete();
             $table->string('nome', 100);
-            $table->string('especie', 50);
-            $table->string('raça', 100)->nullable();
-            $table->date('idade')->nullable();
-            $table->decimal('peso', 5, 2)->nullable();
+            $table->string('email')->unique();
+            $table->string('telefone', 20);
+            $table->string('cpf', 14)->unique()->nullable();
+            $table->string('endereco')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('pets');
+        Schema::dropIfExists('donos');
     }
 };
