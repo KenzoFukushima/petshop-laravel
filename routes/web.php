@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DonoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PetController;
@@ -21,3 +22,5 @@ Route::post('/edit-pet-submit', [PetController::class, 'editPetSubmit'])->name('
 
 Route::get('/delete-pet/{id}', [PetController::class, 'deletePet'])->name('delete.pet');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/lista-dono', [DonoController::class , 'index'])->name('telaListaDono');
