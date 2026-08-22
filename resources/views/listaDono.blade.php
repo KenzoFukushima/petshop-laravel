@@ -10,14 +10,20 @@
 
     <div>
         <h3>Lista de Donos</h3>
+
         <p class="text-muted mb-0">
             Cadastros de clientes do PetShop
         </p>
     </div>
 
-    <a href="#" class="btn btn-primary">
+
+    {{-- Novo Dono --}}
+    <a href="{{ route('new.dono') }}" class="btn btn-primary">
+
         <i class="fas fa-plus me-2"></i>
+
         Novo Dono
+
     </a>
 
 </div>
@@ -32,14 +38,19 @@
             <table class="table table-hover align-middle">
 
                 <thead>
+
                     <tr>
+
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Telefone</th>
                         <th>CPF</th>
                         <th>Ações</th>
+
                     </tr>
+
                 </thead>
+
 
                 <tbody>
 
@@ -48,31 +59,46 @@
                     <tr>
 
                         <td>
+
                             <i class="fas fa-user me-2 text-primary"></i>
+
                             {{ $dono->nome }}
+
                         </td>
+
 
                         <td>
                             {{ $dono->email }}
                         </td>
 
+
                         <td>
                             {{ $dono->telefone }}
                         </td>
+
 
                         <td>
                             {{ $dono->cpf ?? 'Não informado' }}
                         </td>
 
+
                         <td>
-                            <a href="#"
+
+                            {{-- Editar --}}
+                            <a href="{{ route('edit.dono', ['id' => \App\Services\Operations::encryptId($dono->id)]) }}"
                                class="btn btn-sm btn-warning">
+
                                 <i class="fas fa-edit"></i>
+
                             </a>
 
-                            <a href="#"
+
+                            {{-- Excluir --}}
+                            <a href="{{ route('delete.dono', ['id' => \App\Services\Operations::encryptId($dono->id)]) }}"
                                class="btn btn-sm btn-danger">
+
                                 <i class="fas fa-trash"></i>
+
                             </a>
 
                         </td>
