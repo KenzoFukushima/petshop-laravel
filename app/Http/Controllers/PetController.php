@@ -9,6 +9,15 @@ use App\Services\Operations;
 
 class PetController extends Controller
 {
+
+    public function index()
+    {
+        $donos = Dono::all();
+
+        return view('donos.index', [
+            'donos' => $donos
+        ]);
+    }
     public function newPet($id_dono)
     {
         $decrypted_id = Operations::decryptId($id_dono);
@@ -124,5 +133,20 @@ class PetController extends Controller
         }
 
         return redirect()->route('home');
+    }
+
+    public function show($id)
+    {
+        $decrypted_id = Operations::decryptId($id);
+
+        $dono = Dono::with('pets')->find($decrypted_id);
+
+        if (!$dono) {
+            return redirect()->route('donos.index');
+        }
+
+        return view('donos.show', [
+            'dono' => $dono
+        ]);
     }
 }
