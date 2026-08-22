@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Pet;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,11 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        Pet::factory()->create([
+            'id_dono' => 1,
+            'nome' => 'nome',
+            'especie' => 'especie',
+            'raça' => 'raça',
+            'peso' => 8.5,
+            'idade' => 5,
+        ]);
     }
-}
+}   
