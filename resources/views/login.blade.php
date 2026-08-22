@@ -47,11 +47,17 @@
                 <div class="mb-3">
                     <label for="email" class="form-label">E-mail</label>
                     <input type="email" name="emailUser" class="form-control" id="email" placeholder="Digite seu e-mail">
+                    @error('emailUser')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="senha" class="form-label">Senha</label>
                     <input type="password" name="passwordUser" class="form-control" id="senha" placeholder="Digite sua senha">
+                    @error('passwordUser')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100">

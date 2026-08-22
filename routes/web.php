@@ -8,4 +8,4 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/loginSubmit', [AuthController::class, 'loginSubmit'])->name("loginSubmit");
+Route::post('/loginSubmit', [AuthController::class, 'loginSubmit'])->name("loginSubmit");
