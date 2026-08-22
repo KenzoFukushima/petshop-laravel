@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pet extends Model
 {
-
     use HasFactory;
+
     protected $fillable = [
         'id_dono',
         'nome',
@@ -19,7 +19,7 @@ class Pet extends Model
     ];
 
     public function dono()
-    {   
-        return $this->belongsTo(Dono::class, 'id_dono');   
+    {
+        return $this->belongsTo(Dono::class, 'id_dono');
     }
 }
