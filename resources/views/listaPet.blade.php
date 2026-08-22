@@ -10,14 +10,20 @@
 
     <div>
         <h3>Lista de Pets</h3>
+
         <p class="text-muted mb-0">
             Cadastros de pets do PetShop
         </p>
     </div>
 
-    <a href="#" class="btn btn-primary">
+
+    {{-- Novo Pet --}}
+    <a href="{{ route('new.pet') }}" class="btn btn-primary">
+
         <i class="fas fa-plus me-2"></i>
+
         Novo Pet
+
     </a>
 
 </div>
@@ -32,6 +38,7 @@
             <table class="table table-hover align-middle">
 
                 <thead>
+
                     <tr>
                         <th>Nome</th>
                         <th>Espécie</th>
@@ -40,7 +47,9 @@
                         <th>Data de Nascimento</th>
                         <th>Ações</th>
                     </tr>
+
                 </thead>
+
 
                 <tbody>
 
@@ -53,31 +62,51 @@
                             {{ $pet->nome }}
                         </td>
 
+
                         <td>
                             {{ $pet->especie }}
                         </td>
+
 
                         <td>
                             {{ $pet->raça ?? 'Não informado' }}
                         </td>
 
+
                         <td>
                             {{ $pet->dono->nome ?? 'Sem dono' }}
                         </td>
 
+
                         <td>
-                            {{ $pet->idade ? \Carbon\Carbon::parse($pet->idade)->format('d/m/Y') : 'Não informado' }}
+                            {{ $pet->idade
+                                ? \Carbon\Carbon::parse($pet->idade)->format('d/m/Y')
+                                : 'Não informado'
+                            }}
                         </td>
 
+
                         <td>
-                            <a href="#"
+
+                            {{-- Editar --}}
+                            <a href="{{ route('edit.pet', [
+                                'id' => \App\Services\Operations::encryptId($pet->id)
+                            ]) }}"
                                class="btn btn-sm btn-warning">
+
                                 <i class="fas fa-edit"></i>
+
                             </a>
 
-                            <a href="#"
+
+                            {{-- Excluir --}}
+                            <a href="{{ route('delete.pet', [
+                                'id' => \App\Services\Operations::encryptId($pet->id)
+                            ]) }}"
                                class="btn btn-sm btn-danger">
+
                                 <i class="fas fa-trash"></i>
+
                             </a>
 
                         </td>

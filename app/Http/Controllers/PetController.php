@@ -9,39 +9,41 @@ use App\Services\Operations;
 
 class PetController extends Controller
 {
-
     public function index()
     {
-        $pets = Pet::all();
+        $pets = Pet::with('dono')->get();
 
         return view('listaPet', [
             'pets' => $pets
         ]);
     }
-    public function newPet($id_dono)
+
+    public function newPet()
     {
-        $decrypted_id = Operations::decryptId($id_dono);
-        $dono = Dono::find($decrypted_id);
+        $donos = Dono::all();
 
-        if (!$dono) {
-            return redirect()->route('home');
-        }
-
-        return view('pets.new_pet', [
-            'dono' => $dono,
-            'id_dono' => $id_dono,
+        return view('new_pet', [
+            'donos' => $donos,
+            'titulo' => 'Cadastrar Pet',
+            'descricao' => 'Cadastre um novo pet para o dono.',
+            'action' => route('newPetSubmit'),
+            'botao' => 'Cadastrar Pet',
+            'cancelUrl' => route('telaListaPet'),
         ]);
     }
 
     public function newPetSubmit(Request $request)
     {
         $request->validate([
+            'id_dono' => 'required|exists:donos,id',
             'nome' => 'required|min:2|max:100',
             'especie' => 'required|max:50',
             'raça' => 'nullable|max:100',
             'peso' => 'nullable|numeric',
             'idade' => 'nullable|date',
         ], [
+            'id_dono.required' => 'O dono é obrigatório.',
+            'id_dono.exists' => 'O dono selecionado não existe.',
             'nome.required' => 'O nome do pet é obrigatório.',
             'nome.min' => 'O nome deve ter pelo menos :min caracteres.',
             'nome.max' => 'O nome deve ter no máximo :max caracteres.',
@@ -52,10 +54,8 @@ class PetController extends Controller
             'idade.date' => 'A data deve ser válida.',
         ]);
 
-        $id_dono = Operations::decryptId($request->id_dono);
-
         $pet = new Pet();
-        $pet->id_dono = $id_dono;
+        $pet->id_dono = $request->id_dono;
         $pet->nome = $request->nome;
         $pet->especie = $request->especie;
         $pet->raça = $request->raça;
@@ -63,25 +63,35 @@ class PetController extends Controller
         $pet->idade = $request->idade;
         $pet->save();
 
-        return redirect()->route('dono.show', [
-            'id' => $request->id_dono
-        ]);
+        return redirect()->route('telaListaPet');
     }
 
     public function editPet($id)
     {
         $decrypted_id = Operations::decryptId($id);
-        $pet = Pet::with('dono')->find($decrypted_id);
+
+        $pet = Pet::find($decrypted_id);
 
         if (!$pet) {
-            return redirect()->route('home');
+            return redirect()->route('telaListaPet');
         }
 
-        return view('pets.edit_pet', ['pet' => $pet]);
+        return view('edit_pet', [
+            'pet' => $pet,
+            'titulo' => 'Editar Pet',
+            'descricao' => 'Altere os dados do pet abaixo.',
+            'action' => route('edit.pet.submit'),
+            'botao' => 'Salvar alterações',
+            'cancelUrl' => route('telaListaPet'),
+        ]);
     }
 
     public function editPetSubmit(Request $request)
     {
+        if ($request->pet_id === null) {
+            return redirect()->route('telaListaPet');
+        }
+
         $request->validate([
             'nome' => 'required|min:2|max:100',
             'especie' => 'required|max:50',
@@ -100,10 +110,11 @@ class PetController extends Controller
         ]);
 
         $id = Operations::decryptId($request->pet_id);
+
         $pet = Pet::find($id);
 
         if (!$pet) {
-            return redirect()->route('home');
+            return redirect()->route('telaListaPet');
         }
 
         $pet->nome = $request->nome;
@@ -113,40 +124,21 @@ class PetController extends Controller
         $pet->idade = $request->idade;
         $pet->save();
 
-        return redirect()->route('dono.show', [
-            'id' => Operations::encryptId($pet->id_dono)
-        ]);
+        return redirect()->route('telaListaPet');
     }
 
     public function deletePet($id)
     {
         $decrypted_id = Operations::decryptId($id);
+
         $pet = Pet::find($decrypted_id);
 
-        if ($pet) {
-            $id_dono = $pet->id_dono;
-            $pet->delete();
-
-            return redirect()->route('dono.show', [
-                'id' => Operations::encryptId($id_dono)
-            ]);
+        if (!$pet) {
+            return redirect()->route('telaListaPet');
         }
 
-        return redirect()->route('home');
-    }
+        $pet->delete();
 
-    public function show($id)
-    {
-        $decrypted_id = Operations::decryptId($id);
-
-        $dono = Dono::with('pets')->find($decrypted_id);
-
-        if (!$dono) {
-            return redirect()->route('donos.index');
-        }
-
-        return view('donos.show', [
-            'dono' => $dono
-        ]);
+        return redirect()->route('telaListaPet');
     }
 }
