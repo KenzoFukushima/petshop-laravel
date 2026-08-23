@@ -19,66 +19,7 @@
 
     <div class="d-flex">
 
-        {{-- MENU LATERAL --}}
-        <div class="bg-primary text-white p-3 vh-100 border-end" style="width: 240px; position: fixed;">
-
-            {{-- Logo --}}
-            <div class="text-center mb-5">
-
-                <h4>
-                    <i class="fas fa-paw"></i>
-                    PETSHOP
-                </h4>
-
-                <small class="text-secondary">
-                    SYSTEM
-                </small>
-
-            </div>
-
-
-            {{-- Menu --}}
-            <div class="d-grid gap-2">
-
-                <a href="{{ route('dashboard') }}" class="btn btn-primary text-start text-white">
-
-                    <i class="fas fa-home me-2"></i>
-                    Dashboard
-
-                </a>
-
-
-                <a href="{{ route('telaListaDono') }}" class="btn btn-primary text-start text-white">
-
-                    <i class="fas fa-users me-2"></i>
-                    Donos
-
-                </a>
-
-
-                <a href="{{ route('telaListaPet') }}" class="btn btn-primary text-start text-white">
-
-                    <i class="fas fa-paw me-2"></i>
-                    Pets
-
-                </a>
-
-            </div>
-
-
-            {{-- Sair --}}
-            <div class="position-absolute bottom-0 start-0 p-3" style="width: 240px;">
-
-                <a href="{{ route('logout') }}" class="btn btn-danger text-start w-100 texto-red">
-
-                    <i class="fas fa-sign-out-alt me-2"></i>
-                    Sair
-
-                </a>
-
-            </div>
-
-        </div>
+        @include('layout.menu_lateral')
 
 
         {{-- ÁREA PRINCIPAL --}}
