@@ -25,7 +25,7 @@ class AuthController extends Controller
         $request->validate(
             [
                 'emailUser' => 'required|email|min:8',
-                'passwordUser' => 'required|min:6',
+                'passwordUser' => 'required',
             ],
             [
                 'emailUser.required' => 'O campo email é obrigatório.',
@@ -33,7 +33,6 @@ class AuthController extends Controller
                 'emailUser.min' => 'Precisa ter no mínimo 8 caracteres.',
 
                 'passwordUser.required' => 'O campo senha é obrigatório.',
-                'passwordUser.min' => 'Precisa ter no mínimo 6 caracteres.',
             ]
         );
 

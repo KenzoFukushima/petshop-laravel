@@ -44,6 +44,12 @@
 
                 @csrf
 
+                @if (session('login_error'))
+                    <div class="alert alert-danger">
+                        {{ session('login_error') }}
+                    </div>
+                @endif
+
                 <div class="mb-3">
                     <label for="email" class="form-label">E-mail</label>
                     <input type="email" name="emailUser" class="form-control" id="email" placeholder="Digite seu e-mail" value="{{ old('emailUser') }}">
