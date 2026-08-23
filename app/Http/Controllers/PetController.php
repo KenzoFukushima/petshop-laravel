@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Models\Dono;
@@ -68,7 +69,12 @@ class PetController extends Controller
 
     public function editPet($id)
     {
-        $decrypted_id = Operations::decryptId($id);
+
+        try {
+            $decrypted_id = Operations::decryptId($id);
+        } catch (DecryptException $e) {
+            return redirect()->route('telaListaPet')->with('erro', 'Link inválido ou adulterado.');
+        }
 
         $pet = Pet::find($decrypted_id);
 
@@ -109,7 +115,11 @@ class PetController extends Controller
             'idade.date' => 'A data deve ser válida.',
         ]);
 
-        $id = Operations::decryptId($request->pet_id);
+        try {
+            $id = Operations::decryptId($request->pet_id);
+        } catch (DecryptException $e) {
+            return redirect()->route('telaListaPet')->with('erro', 'Link inválido ou adulterado.');
+        }
 
         $pet = Pet::find($id);
 
@@ -129,7 +139,12 @@ class PetController extends Controller
 
     public function deletePet($id)
     {
-        $decrypted_id = Operations::decryptId($id);
+
+        try {
+            $decrypted_id = Operations::decryptId($id);
+        } catch (DecryptException $e) {
+            return redirect()->route('telaListaPet')->with('erro', 'Link inválido ou adulterado.');
+        }
 
         $pet = Pet::find($decrypted_id);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use App\Models\Dono;
 use App\Services\Operations;
@@ -92,7 +93,13 @@ class DonoController extends Controller
 
     public function editDono($id)
     {
-        $decrypted_id = Operations::decryptId($id);
+
+
+        try {
+            $decrypted_id = Operations::decryptId($id);
+        } catch (DecryptException $e) {
+            return redirect()->route('telaListaDono')->with('erro', 'Link inválido ou adulterado.');
+        }
 
         $dono = Dono::find($decrypted_id);
 
@@ -180,6 +187,12 @@ class DonoController extends Controller
     public function deleteDono($id)
     {
         $decrypted_id = Operations::decryptId($id);
+
+        try {
+            $decrypted_id = Operations::decryptId($id);
+        } catch (DecryptException $e) {
+            return redirect()->route('telaListaDono')->with('erro', 'Link inválido ou adulterado.');
+        }
 
         $dono = Dono::find($decrypted_id);
 
