@@ -40,7 +40,7 @@
                             </p>
 
                             <h2 class="fw-bold mb-0">
-                                25
+                                {{ $totalDonos }}
                             </h2>
 
                         </div>
@@ -76,8 +76,8 @@
                             </p>
 
                             <h2 class="fw-bold mb-0">
-                                42
-                            </h2>
+                                {{ $totalPets }}
+                            </h2>  
 
                         </div>
 
@@ -135,7 +135,7 @@
                                     Cadastre e gerencie os donos dos pets.
                                 </p>
 
-                                <a href="#"
+                                <a href="{{ route('telaListaDono') }}"
                                    class="btn btn-primary">
 
                                     Acessar Donos
@@ -179,7 +179,7 @@
                                     Cadastre e gerencie os animais.
                                 </p>
 
-                                <a href="#"
+                                <a href="{{ route('telaListaPet') }}"
                                    class="btn btn-success">
 
                                     Acessar Pets
