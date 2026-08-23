@@ -1,5 +1,9 @@
 @extends('layout.edicao')
 
+@section('page-title')
+    Pets
+@endsection
+
 @section('form-fields')
 
     {{-- ID do pet --}}

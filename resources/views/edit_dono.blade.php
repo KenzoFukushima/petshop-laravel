@@ -1,5 +1,9 @@
 @extends('layout.edicao')
 
+@section('page-title')
+    Donos
+@endsection
+
 @section('form-fields')
 
     <input
@@ -8,8 +12,10 @@
         value="{{ request()->route('id') }}"
     >
 
+
     {{-- Nome --}}
     <div class="mb-3">
+
         <label for="nome" class="form-label fw-semibold">
             Nome
         </label>
@@ -24,12 +30,17 @@
         >
 
         @error('nome')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="text-danger">
+                {{ $message }}
+            </div>
         @enderror
+
     </div>
+
 
     {{-- Email --}}
     <div class="mb-3">
+
         <label for="email" class="form-label fw-semibold">
             E-mail
         </label>
@@ -44,12 +55,17 @@
         >
 
         @error('email')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="text-danger">
+                {{ $message }}
+            </div>
         @enderror
+
     </div>
+
 
     {{-- Telefone --}}
     <div class="mb-3">
+
         <label for="telefone" class="form-label fw-semibold">
             Telefone
         </label>
@@ -64,12 +80,17 @@
         >
 
         @error('telefone')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="text-danger">
+                {{ $message }}
+            </div>
         @enderror
+
     </div>
+
 
     {{-- CPF --}}
     <div class="mb-3">
+
         <label for="cpf" class="form-label fw-semibold">
             CPF
         </label>
@@ -84,12 +105,17 @@
         >
 
         @error('cpf')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="text-danger">
+                {{ $message }}
+            </div>
         @enderror
+
     </div>
+
 
     {{-- Endereço --}}
     <div class="mb-3">
+
         <label for="endereco" class="form-label fw-semibold">
             Endereço
         </label>
@@ -104,8 +130,11 @@
         >
 
         @error('endereco')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="text-danger">
+                {{ $message }}
+            </div>
         @enderror
+
     </div>
 
 @endsection
