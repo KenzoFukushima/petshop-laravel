@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dono;
+use App\Models\Pet;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -10,6 +12,14 @@ class AuthController extends Controller
     public function login () {
         return view('login');
     }
+
+    public function index()
+{
+    return view('dashboard', [
+        'totalDonos' => Dono::count(),
+        'totalPets' => Pet::count(),
+    ]);
+}
 
     public function loginSubmit(Request $request) {
         $request->validate(

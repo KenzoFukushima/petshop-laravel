@@ -17,9 +17,7 @@ Route::middleware([CheckIsNotLogged::class])->group(function () {
 
 Route::middleware([CheckIsLogged::class])->group(function () {
 
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [AuthController::class, 'index'])->name('dashboard');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
