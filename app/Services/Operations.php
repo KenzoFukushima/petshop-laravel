@@ -9,11 +9,8 @@ class Operations
 
     public static function decryptId($value)
         {
-            try {
                 return Crypt::decrypt($value);
-            } catch (DecryptException $e) {
-                return redirect('/');
-            }
+
         }
 
     public static function encryptId($value)
