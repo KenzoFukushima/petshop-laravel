@@ -123,7 +123,11 @@ class DonoController extends Controller
             return redirect()->route('telaListaDono');
         }
 
-        $id = Operations::decryptId($request->dono_id);
+        try {
+            $id = Operations::decryptId($request->dono_id);
+        } catch (DecryptException $e) {
+            return redirect()->route('telaListaDono')->with('erro', 'Link inválido ou adulterado.');
+        }
 
         $dono = Dono::find($id);
 
@@ -186,7 +190,6 @@ class DonoController extends Controller
 
     public function deleteDono($id)
     {
-        $decrypted_id = Operations::decryptId($id);
 
         try {
             $decrypted_id = Operations::decryptId($id);
