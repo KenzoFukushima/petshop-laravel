@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Dono;
 use App\Services\Operations;
+use Illuminate\Validation\Rule;
 
 class DonoController extends Controller
 {
@@ -19,7 +20,6 @@ class DonoController extends Controller
 
     private function formatarCpf($cpf)
     {
-        
         $cpfLimpo = preg_replace('/[^0-9]/', '', $cpf);
 
         if (strlen($cpfLimpo) !== 11) {
@@ -31,6 +31,7 @@ class DonoController extends Controller
             ...str_split($cpfLimpo)
         );
     }
+
     public function newDono()
     {
         return view('new_dono', [
@@ -44,33 +45,44 @@ class DonoController extends Controller
 
     public function newDonoSubmit(Request $request)
     {
-        $request->validate([
+        $cpf = $request->cpf
+            ? $this->formatarCpf($request->cpf)
+            : null;
+
+        $request->merge([
+            'cpf' => $cpf
+        ]);
+
+        $request->validate(
+            [
                 'nome' => 'required|min:2|max:100',
-                'email' => 'required|email|min:8|max:100',
+                'email' => 'required|email|min:8|max:100|unique:donos,email',
                 'telefone' => 'required|max:20',
-                'cpf' => 'nullable|max:14|min:11',
+                'cpf' => 'nullable|max:14|min:11|unique:donos,cpf',
                 'endereco' => 'nullable|max:255',
             ],
             [
                 'nome.required' => 'O campo nome é obrigatório.',
-                'nome.min' => 'O nome é no mínimo 2 caracteres',
-                'email.required' => 'O Email é obrigatório',
+                'nome.min' => 'O nome deve ter no mínimo 2 caracteres.',
+                'email.required' => 'O Email é obrigatório.',
                 'email.email' => 'Email inválido.',
                 'email.min' => 'Precisa ter no mínimo 8 caracteres.',
+                'email.unique' => 'Este e-mail já está cadastrado para outro dono.',
                 'telefone.required' => 'O campo telefone é obrigatório.',
                 'telefone.max' => 'O telefone deve ter no máximo 20 caracteres.',
-                'cpf.max' => 'O CPF inválido',
-                'cpf.min' => 'O CPF inválido',
+                'cpf.max' => 'O CPF inválido.',
+                'cpf.min' => 'O CPF inválido.',
+                'cpf.unique' => 'Este CPF já está cadastrado para outro dono.',
                 'endereco.max' => 'O endereço deve ter no máximo 255 caracteres.',
             ]
         );
+
         $dono = new Dono();
 
         $dono->nome = $request->nome;
         $dono->email = $request->email;
         $dono->telefone = $request->telefone;
-        $dono->cpf = $request->cpf ? $this->formatarCpf($request->cpf) : null;
-
+        $dono->cpf = $cpf;
         $dono->endereco = $request->endereco;
 
         $dono->save();
@@ -104,25 +116,6 @@ class DonoController extends Controller
             return redirect()->route('telaListaDono');
         }
 
-        $request->validate([
-                'nome' => 'required|min:2|max:100',
-                'email' => 'required|email|min:8|max:100',
-                'telefone' => 'required|max:20',
-                'cpf' => 'nullable|max:14',
-                'endereco' => 'nullable|max:255',
-            ],
-            [
-                'nome.required' => 'O campo nome é obrigatório.',
-                'nome.min' => 'O nome é no mínimo 2 caracteres',
-                'email.email' => 'Email inválido.',
-                'telefone.required' => 'O campo telefone é obrigatório.',
-                'telefone.max' => 'O telefone deve ter no máximo 20 caracteres.',
-                'cpf.max' => 'O CPF inválido',
-                'cpf.min' => 'O CPF inválido',
-                'endereco.max' => 'O endereço deve ter no máximo 255 caracteres.',
-            ]
-        );
-
         $id = Operations::decryptId($request->dono_id);
 
         $dono = Dono::find($id);
@@ -131,10 +124,52 @@ class DonoController extends Controller
             return redirect()->route('telaListaDono');
         }
 
+        $cpf = $request->cpf
+            ? $this->formatarCpf($request->cpf)
+            : null;
+
+        $request->merge([
+            'cpf' => $cpf
+        ]);
+
+        $request->validate(
+            [
+                'nome' => 'required|min:2|max:100',
+                'email' => [
+                    'required',
+                    'email',
+                    'min:8',
+                    'max:100',
+                    Rule::unique('donos', 'email')->ignore($dono->id),
+                ],
+                'telefone' => 'required|max:20',
+                'cpf' => [
+                    'nullable',
+                    'max:14',
+                    'min:11',
+                    Rule::unique('donos', 'cpf')->ignore($dono->id),
+                ],
+                'endereco' => 'nullable|max:255',
+            ],
+            [
+                'nome.required' => 'O campo nome é obrigatório.',
+                'nome.min' => 'O nome deve ter no mínimo 2 caracteres.',
+                'email.email' => 'Email inválido.',
+                'email.min' => 'Precisa ter no mínimo 8 caracteres.',
+                'email.unique' => 'Este e-mail já está cadastrado para outro dono.',
+                'telefone.required' => 'O campo telefone é obrigatório.',
+                'telefone.max' => 'O telefone deve ter no máximo 20 caracteres.',
+                'cpf.max' => 'O CPF inválido.',
+                'cpf.min' => 'O CPF inválido.',
+                'cpf.unique' => 'Este CPF já está cadastrado para outro dono.',
+                'endereco.max' => 'O endereço deve ter no máximo 255 caracteres.',
+            ]
+        );
+
         $dono->nome = $request->nome;
         $dono->email = $request->email;
         $dono->telefone = $request->telefone;
-        $dono->cpf = $request->cpf ? $this->formatarCpf($request->cpf) : null;
+        $dono->cpf = $cpf;
         $dono->endereco = $request->endereco;
 
         $dono->save();
