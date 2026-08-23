@@ -1,9 +1,14 @@
 @extends('layout.cadastro')
 
+@section('page-title')
+    Donos
+@endsection
+
 @section('form-fields')
 
     {{-- Nome --}}
     <div class="mb-3">
+
         <label for="nome" class="form-label fw-semibold">
             Nome
         </label>
@@ -15,6 +20,7 @@
             class="form-control @error('nome') is-invalid @enderror"
             value="{{ old('nome') }}"
             placeholder="Digite o nome do dono"
+            required
         >
 
         @error('nome')
@@ -22,11 +28,13 @@
                 {{ $message }}
             </div>
         @enderror
+
     </div>
 
 
     {{-- Email --}}
     <div class="mb-3">
+
         <label for="email" class="form-label fw-semibold">
             E-mail
         </label>
@@ -38,6 +46,7 @@
             class="form-control @error('email') is-invalid @enderror"
             value="{{ old('email') }}"
             placeholder="Digite o e-mail"
+            required
         >
 
         @error('email')
@@ -45,11 +54,13 @@
                 {{ $message }}
             </div>
         @enderror
+
     </div>
 
 
     {{-- Telefone --}}
     <div class="mb-3">
+
         <label for="telefone" class="form-label fw-semibold">
             Telefone
         </label>
@@ -61,6 +72,7 @@
             class="form-control @error('telefone') is-invalid @enderror"
             value="{{ old('telefone') }}"
             placeholder="Digite o telefone"
+            required
         >
 
         @error('telefone')
@@ -68,11 +80,13 @@
                 {{ $message }}
             </div>
         @enderror
+
     </div>
 
 
     {{-- CPF --}}
     <div class="mb-3">
+
         <label for="cpf" class="form-label fw-semibold">
             CPF
         </label>
@@ -91,11 +105,13 @@
                 {{ $message }}
             </div>
         @enderror
+
     </div>
 
 
     {{-- Endereço --}}
     <div class="mb-3">
+
         <label for="endereco" class="form-label fw-semibold">
             Endereço
         </label>
@@ -114,6 +130,7 @@
                 {{ $message }}
             </div>
         @enderror
+
     </div>
 
 @endsection

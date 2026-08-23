@@ -1,5 +1,9 @@
 @extends('layout.cadastro')
 
+@section('page-title')
+    Pets
+@endsection
+
 @section('form-fields')
 
     {{-- Dono --}}
@@ -15,7 +19,7 @@
             class="form-control @error('id_dono') is-invalid @enderror"
             list="lista-donos"
             placeholder="Pesquise pelo nome do dono"
-            value="{{ old('dono_nome', isset($dono) ? $dono->nome : '') }}"
+            value="{{ old('dono_nome') }}"
             autocomplete="off"
         >
 
@@ -26,7 +30,7 @@
                 <option
                     value="{{ $donoItem->nome }}"
                     data-id="{{ $donoItem->id }}"
-                >
+                ></option>
 
             @endforeach
 
@@ -36,7 +40,7 @@
             type="hidden"
             name="id_dono"
             id="id_dono"
-            value="{{ old('id_dono', isset($id_dono) ? $id_dono : '') }}"
+            value="{{ old('id_dono') }}"
         >
 
         @error('id_dono')
@@ -46,7 +50,6 @@
         @enderror
 
     </div>
-
 
     {{-- Nome --}}
     <div class="mb-3">
@@ -62,6 +65,7 @@
             class="form-control @error('nome') is-invalid @enderror"
             value="{{ old('nome') }}"
             placeholder="Digite o nome do pet"
+            required
         >
 
         @error('nome')
@@ -84,6 +88,7 @@
             name="especie"
             id="especie"
             class="form-select @error('especie') is-invalid @enderror"
+            required
         >
 
             <option value="">
